@@ -162,7 +162,12 @@
                         captionEl.children[0].innerText = '';
                         return false;
                     }
-                    captionEl.children[0].innerHTML = item.title +  '<br/><small>Imágen: ' + item.author + '</small>';
+                    captionEl.children[0].innerHTML = item.title +  
+                        '<br/><small>Imágen: ' + 
+                        item.author + 
+                        '</small>' + 
+                        '<br/><a class="btn" onclick="guardarImagenFichero(IdImagen)"><i class="fa fa-save"></i> Grabar</a>';
+
                     return true;
                 }
                 
@@ -208,7 +213,6 @@
                 var dpiRatio = window.devicePixelRatio ? window.devicePixelRatio : 1;
                 dpiRatio = Math.min(dpiRatio, 2.5);
                 realViewportWidth = gallery.viewportSize.x * dpiRatio;
-
 
                 if(realViewportWidth >= 1200 || (!gallery.likelyTouchDevice && realViewportWidth > 800) || screen.width > 1200 ) {
                     if(!useLargeImages) {
@@ -267,3 +271,12 @@
     initPhotoSwipeFromDOM('.demo-gallery');
 
 })();
+
+function guardarImagenFichero (img) {
+    if (typeof img == 'object')
+        img = img.src;
+    
+    window.newW = open(img);
+    newW.document.execCommand("SaveAs");
+    newW.close();
+}
